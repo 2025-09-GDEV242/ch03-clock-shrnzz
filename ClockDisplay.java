@@ -1,9 +1,16 @@
 
 /**
  * The ClockDisplay class implements a digital clock display for a
- * European-style 24 hour clock. The clock shows hours and minutes. The 
- * range of the clock is 00:00 (midnight) to 23:59 (one minute before 
- * midnight).
+ * American-style 12 hour clock. The clock shows hours and minutes. The 
+ * range of the clock internally is 00:00  to 11:59. The clock 
+ * needs to keep track of whether it is AM or PM.
+ * 
+ * The constructor needs to record this information.
+ * 
+ * The zero parameter constructor should set the meridian to AM. 
+ * 
+ * The code needs to track when hours rolls over to change from (AM to PM)
+ *
  * 
  * The clock display receives "ticks" (via the timeTick method) every minute
  * and reacts by incrementing the display. This is done in the usual clock
