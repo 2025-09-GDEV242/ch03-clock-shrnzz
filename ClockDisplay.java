@@ -89,7 +89,28 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int internalHour = hours.getValue();
+        int displayHour;
+        
+        //AM or PM 
+        if (internalHour < 12){
+            meridian = "AM";
+        }else {
+            meridian = "PM";
+        }
+        
+        //convert hours into 12 hour format
+        
+        displayHour = internalHour % 12;
+        if (displayHour == 0){
+            displayHour =12;
+        }
+        
+        /*used ternary operator for displayString if value is less than 10,
+        then display 0 with hour, if false then display hour with empty string
+        */
+        displayString = (displayHour < 10 ? "0" + displayHour: "" + 
+                        displayHour)+ ":" + minutes.getDisplayValue()
+                        + " " + meridian;
     }
 }
