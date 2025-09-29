@@ -33,6 +33,7 @@ public class ClockDisplay
         minutes = new NumberDisplay(60);
         hours.setValue(0);
         minutes.setValue(0);
+        meridian = "AM";
         updateDisplay();
     }
 
@@ -88,6 +89,7 @@ public class ClockDisplay
        */
     private void updateDisplay()
     {
+        
         displayString = hours.getDisplayValue() + ":" + 
                         minutes.getDisplayValue();
     }
