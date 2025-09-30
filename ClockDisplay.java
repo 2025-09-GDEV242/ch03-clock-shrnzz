@@ -34,7 +34,7 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        meridian = "PM";
+        meridian = "AM";
         updateDisplay();
     }
 
@@ -56,17 +56,19 @@ public class ClockDisplay
      */
     public void timeTick()
     {   
-        currentHour = hours.getValue();
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
-            if (currentHour == 0) {
-                if (meridian == "AM"){
+            hours.increment();
+            currentHour = hours.getValue();
+            if (hours.getValue() == 0) {
+                currentHour = 12;
+                if (meridian.equals ("AM")){
                     meridian = "PM";
+                } else {
+                    meridian = "AM";
                 }
             }
-        } else {
-            meridian = "AM";
-        }
+        } 
         updateDisplay();
     }
 
@@ -76,6 +78,9 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
+        if (hour == 0){
+            hour = 12;
+        }
         hours.setValue(hour);
         minutes.setValue(minute);
         updateDisplay();
@@ -95,7 +100,7 @@ public class ClockDisplay
     private void updateDisplay()
     {
         
-        displayString = (currentHour+ ":" + minutes.getDisplayValue()
+        displayString = (hours.getValue()+ ":" + minutes.getDisplayValue()
                         + " " + meridian);
     }
 }
