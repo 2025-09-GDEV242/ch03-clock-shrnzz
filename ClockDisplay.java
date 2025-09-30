@@ -25,17 +25,16 @@ public class ClockDisplay
     private NumberDisplay minutes;
     private String displayString;    // simulates the actual display
     private String meridian;        // AM or PM
-    
+    private int currentHour;
     /**
      * Constructor for ClockDisplay objects. This constructor 
      * creates a new clock set at 00:00.
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
-        hours.setValue(0);
-        minutes.setValue(0);
+        meridian = "PM";
         updateDisplay();
     }
 
@@ -46,7 +45,7 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
         setTime(hour, minute);
     }
@@ -56,10 +55,17 @@ public class ClockDisplay
      * the clock display go one minute forward.
      */
     public void timeTick()
-    {
+    {   
+        currentHour = hours.getValue();
         minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
-            hours.increment();
+            if (currentHour == 0) {
+                if (meridian == "AM"){
+                    meridian = "PM";
+                }
+            }
+        } else {
+            meridian = "AM";
         }
         updateDisplay();
     }
@@ -89,8 +95,7 @@ public class ClockDisplay
     private void updateDisplay()
     {
         
-        displayString = (displayHour < 10 ? "0" + displayHour: "" + 
-                        displayHour)+ ":" + minutes.getDisplayValue()
-                        + " " + meridian;
+        displayString = (currentHour+ ":" + minutes.getDisplayValue()
+                        + " " + meridian);
     }
 }
